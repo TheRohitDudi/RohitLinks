@@ -4,31 +4,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #0a0e27;
-  --foreground: #e8eef9;
-  --card: #1a1f3a;
-  --card-foreground: #e8eef9;
+  --background: #0f0f23;
+  --foreground: #f5f5f7;
+  --card: #1a1a2e;
+  --card-foreground: #f5f5f7;
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: #00d9ff;
-  --primary-foreground: #0a0e27;
+  --primary-foreground: #0f0f23;
   --secondary: #6366f1;
   --secondary-foreground: #ffffff;
-  --muted: #3f4667;
-  --muted-foreground: #a1aac9;
+  --muted: #2a2a3e;
+  --muted-foreground: #a0a0b0;
   --accent: #8b5cf6;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: #2d3557;
-  --input: #1a1f3a;
+  --border: #2a2a3e;
+  --input: #1a1a2e;
   --ring: #00d9ff;
   --chart-1: #00d9ff;
   --chart-2: #8b5cf6;
   --chart-3: #ec4899;
   --chart-4: #6366f1;
   --chart-5: #14b8a6;
-  --radius: 0.625rem;
+  --radius: 0.75rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -40,24 +40,24 @@
 }
 
 .dark {
-  --background: #0a0e27;
-  --foreground: #e8eef9;
-  --card: #1a1f3a;
-  --card-foreground: #e8eef9;
+  --background: #0f0f23;
+  --foreground: #f5f5f7;
+  --card: #1a1a2e;
+  --card-foreground: #f5f5f7;
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: #00d9ff;
-  --primary-foreground: #0a0e27;
+  --primary-foreground: #0f0f23;
   --secondary: #6366f1;
   --secondary-foreground: #ffffff;
-  --muted: #3f4667;
-  --muted-foreground: #a1aac9;
+  --muted: #2a2a3e;
+  --muted-foreground: #a0a0b0;
   --accent: #8b5cf6;
   --accent-foreground: #ffffff;
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: #2d3557;
-  --input: #1a1f3a;
+  --border: #2a2a3e;
+  --input: #1a1a2e;
   --ring: #00d9ff;
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
@@ -122,76 +122,56 @@
     @apply bg-background text-foreground;
   }
 
-  @keyframes stars {
-    0%,
-    100% {
-      opacity: 0.3;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
     }
-    50% {
+    to {
       opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  @keyframes glow {
-    0%,
-    100% {
-      filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
-    }
-    50% {
-      filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.8));
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  .stars {
-    animation: stars 3s ease-in-out infinite;
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out;
   }
 
-  .float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .glow {
-    animation: glow 2s ease-in-out infinite;
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out;
   }
 }
 
-/* Starfield background */
+/* Clean gradient background */
 @layer utilities {
-  .starfield {
+  .gradient-bg {
     position: relative;
-    background: radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.1), transparent 50%),
-      radial-gradient(ellipse at 0% 50%, rgba(0, 217, 255, 0.1), transparent 50%),
-      linear-gradient(180deg, #0a0e27 0%, #0f1436 50%, #1a0f35 100%);
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #0f0f23 100%);
+    min-height: 100vh;
   }
 
-  .starfield::before {
+  .gradient-bg::before {
     content: "";
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(2px 2px at 20% 30%, #eee, rgba(0, 0, 0, 0)),
-      radial-gradient(2px 2px at 60% 70%, #fff, rgba(0, 0, 0, 0)),
-      radial-gradient(1px 1px at 50% 50%, #ddd, rgba(0, 0, 0, 0)),
-      radial-gradient(1px 1px at 80% 10%, #fff, rgba(0, 0, 0, 0)),
-      radial-gradient(2px 2px at 90% 60%, #fff, rgba(0, 0, 0, 0)),
-      radial-gradient(1px 1px at 30% 80%, #ddd, rgba(0, 0, 0, 0)),
-      radial-gradient(1px 1px at 70% 40%, #fff, rgba(0, 0, 0, 0));
-    background-size: 200% 200%, 150% 150%, 180% 180%, 220% 220%, 170% 170%, 210% 210%, 190% 190%;
-    background-position: 0% 0%, 40% 60%, 130% 270%, 70% 100%, 100% 0%, 50% 50%, 100% 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
-    opacity: 0.5;
   }
 }
+

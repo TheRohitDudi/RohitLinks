@@ -25,13 +25,13 @@ export function LinksDisplay({
 
     return (
         <div
-            className="w-full max-w-2xl mx-auto px-4 relative z-10"
+            className="w-full max-w-xl mx-auto px-4 relative z-10"
             role="region"
             aria-label="Personal links"
         >
-            <div className="space-y-4">
+            <div className="space-y-3">
                 {visibleLinks.length === 0 ? (
-                    <div className="text-center py-8 text-muted-foreground">
+                    <div className="text-center py-12 text-muted-foreground">
                         <p>No links available yet.</p>
                     </div>
                 ) : (
@@ -41,39 +41,38 @@ export function LinksDisplay({
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group relative flex items-center justify-center gap-4 p-5 bg-card border border-border rounded-xl hover:border-primary hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background cursor-pointer"
+                            className="group relative flex items-center gap-4 p-4 bg-card border border-border rounded-lg hover:border-primary/50 hover:bg-card/80 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background cursor-pointer animate-slide-up"
+                            style={{ animationDelay: `${index * 50}ms` }}
                             aria-label={`${link.title} - Opens in new window`}
-                            style={{ minHeight: "64px" }}
                         >
-                            {/* Background glow effect */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/0 to-primary/0 group-hover:from-primary/10 group-hover:to-primary/20 transition-all duration-300" />
-
-                            {/* Content: Icon and Title Centered */}
-                            <div className="relative flex items-center justify-center gap-5 w-full">
-                                <span className="text-primary group-hover:scale-125 transition-transform duration-300 flex-shrink-0">
+                            {/* Icon */}
+                            <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                                <span className="text-primary">
                                     {ICON_MAP[link.icon] || ICON_MAP.globe}
                                 </span>
-                                <span className="flex-1 text-center">
-                                    <span className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300 block">
-                                        {link.title}
-                                    </span>
-                                    {isAdmin && (
-                                        <span className="text-xs text-muted-foreground truncate mt-1 block">
-                                            {link.url}
-                                        </span>
-                                    )}
+                            </div>
+
+                            {/* Title */}
+                            <div className="flex-1 min-w-0">
+                                <span className="font-semibold text-base text-foreground group-hover:text-primary transition-colors block truncate">
+                                    {link.title}
                                 </span>
+                                {isAdmin && (
+                                    <span className="text-xs text-muted-foreground truncate block mt-0.5">
+                                        {link.url}
+                                    </span>
+                                )}
                             </div>
 
                             {/* Actions */}
                             {isAdmin ? (
-                                <div className="relative flex items-center gap-2 ml-4 flex-shrink-0">
+                                <div className="flex items-center gap-2 flex-shrink-0">
                                     <button
                                         onClick={(e) => {
                                             e.preventDefault();
                                             onToggleVisibility?.(link.id);
                                         }}
-                                        className="p-2 hover:bg-muted rounded-lg transition-colors"
+                                        className="p-2 hover:bg-muted rounded transition-colors"
                                         title={link.visible ? "Hide" : "Show"}
                                         aria-label={
                                             link.visible
@@ -90,7 +89,7 @@ export function LinksDisplay({
                                             e.preventDefault();
                                             onEdit?.(link);
                                         }}
-                                        className="px-3 py-1 text-xs bg-primary/20 text-primary hover:bg-primary/30 rounded transition-colors"
+                                        className="px-3 py-1.5 text-xs bg-primary/20 text-primary hover:bg-primary/30 rounded transition-colors"
                                     >
                                         Edit
                                     </button>
@@ -99,14 +98,14 @@ export function LinksDisplay({
                                             e.preventDefault();
                                             onDelete?.(link.id);
                                         }}
-                                        className="px-3 py-1 text-xs bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded transition-colors"
+                                        className="px-3 py-1.5 text-xs bg-red-500/20 text-red-400 hover:bg-red-500/30 rounded transition-colors"
                                     >
                                         Delete
                                     </button>
                                 </div>
                             ) : (
                                 <ExternalLink
-                                    className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-colors duration-300 flex-shrink-0 ml-2"
+                                    className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0"
                                     aria-hidden="true"
                                 />
                             )}

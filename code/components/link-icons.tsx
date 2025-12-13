@@ -19,22 +19,22 @@ import {
 } from "lucide-react";
 
 export const ICON_MAP: Record<string, React.ReactNode> = {
-    globe: <Globe className="w-7 h-7" />,
-    youtube: <Youtube className="w-7 h-7" />,
-    instagram: <Instagram className="w-7 h-7" />,
-    linkedin: <Linkedin className="w-7 h-7" />,
-    twitter: <Twitter className="w-7 h-7" />,
-    github: <Github className="w-7 h-7" />,
-    facebook: <Facebook className="w-7 h-7" />,
-    discord: <MessageCircle className="w-7 h-7" />,
-    telegram: <Send className="w-7 h-7" />,
-    threads: <Zap className="w-7 h-7" />,
-    soundcloud: <Music className="w-7 h-7" />,
-    spotify: <Disc3 className="w-7 h-7" />,
-    reddit: <Users className="w-7 h-7" />,
-    pinterest: <Pin className="w-7 h-7" />,
-    tumblr: <Maximize className="w-7 h-7" />,
-    whatsapp: <Radio className="w-7 h-7" />,
+    globe: <Globe className="w-5 h-5" />,
+    youtube: <Youtube className="w-5 h-5" />,
+    instagram: <Instagram className="w-5 h-5" />,
+    linkedin: <Linkedin className="w-5 h-5" />,
+    twitter: <Twitter className="w-5 h-5" />,
+    github: <Github className="w-5 h-5" />,
+    facebook: <Facebook className="w-5 h-5" />,
+    discord: <MessageCircle className="w-5 h-5" />,
+    telegram: <Send className="w-5 h-5" />,
+    threads: <Zap className="w-5 h-5" />,
+    soundcloud: <Music className="w-5 h-5" />,
+    spotify: <Disc3 className="w-5 h-5" />,
+    reddit: <Users className="w-5 h-5" />,
+    pinterest: <Pin className="w-5 h-5" />,
+    tumblr: <Maximize className="w-5 h-5" />,
+    whatsapp: <Radio className="w-5 h-5" />,
 };
 
 export function getIconForUrl(url: string): string {
