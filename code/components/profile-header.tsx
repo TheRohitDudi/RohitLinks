@@ -40,36 +40,36 @@ export function ProfileHeader({
                 {profile.bio}
             </p>
 
-            {/* Social Icon Bar - Simplified */}
+            {/* Social Icon Bar - First 5 only, wrapped in single border */}
             <div className="flex justify-center gap-4 mb-6 flex-wrap px-4">
-                {[
-                    { href: "https://www.github.com/RealRohitDudi" },
-                    { href: "https://x.com/RealRohitDudi" },
-                    { href: "https://www.youtube.com/@RealRohitDudi" },
-                    { href: "https://www.linkedin.com/in/RealRohitDudi" },
-                    { href: "https://www.instagram.com/realrohitdudi" },
-                    { href: "https://www.facebook.com/RealRohitDudi" },
-                    { href: "https://in.pinterest.com/RealRohitDudi/" },
-                ].map(({ href }) => {
-                    const iconKey = getIconForUrl(href);
-                    return (
-                        <a
-                            key={href}
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={
-                                iconKey.charAt(0).toUpperCase() +
-                                iconKey.slice(1)
-                            }
-                            className="flex items-center justify-center w-11 h-11 rounded-lg bg-card border border-border hover:border-primary hover:bg-card/80 transition-all duration-200 hover:scale-110"
-                        >
-                            <span className="text-foreground/70 hover:text-primary transition-colors">
-                                {ICON_MAP[iconKey]}
-                            </span>
-                        </a>
-                    );
-                })}
+                <div className="flex justify-center gap-4 px-4 py-3 border border-border rounded-lg bg-card/50">
+                    {[
+                        { href: "https://www.github.com/RealRohitDudi" },
+                        { href: "https://x.com/RealRohitDudi" },
+                        { href: "https://www.youtube.com/@RealRohitDudi" },
+                        { href: "https://www.linkedin.com/in/RealRohitDudi" },
+                        { href: "https://www.instagram.com/realrohitdudi" },
+                    ].map(({ href }) => {
+                        const iconKey = getIconForUrl(href);
+                        return (
+                            <a
+                                key={href}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={
+                                    iconKey.charAt(0).toUpperCase() +
+                                    iconKey.slice(1)
+                                }
+                                className="flex items-center justify-center w-10 h-10 hover:scale-110 transition-transform duration-200"
+                            >
+                                <span className="text-foreground/70 hover:text-primary transition-colors">
+                                    {ICON_MAP[iconKey]}
+                                </span>
+                            </a>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );
