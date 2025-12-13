@@ -13,7 +13,7 @@ export function ProfileHeader({
     isPreview = false,
 }: ProfileHeaderProps) {
     return (
-        <div className="text-center mb-12 relative z-10 px-4 sm:px-0 animate-fade-in">
+        <div className="text-center mb-6 relative z-10 px-4 sm:px-0 animate-fade-in">
             {/* Profile Image */}
             <div className="mb-8 flex justify-center">
                 <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36">
@@ -41,8 +41,8 @@ export function ProfileHeader({
             </p>
 
             {/* Social Icon Bar - First 5 only, wrapped in single border */}
-            <div className="flex justify-center gap-4 mb-6 flex-wrap px-4">
-                <div className="flex justify-center gap-4 px-4 py-3 border border-border rounded-lg bg-card/50">
+            <div className="flex justify-center gap-4 mb-3 flex-wrap px-4">
+                <div className="flex justify-center gap-4 px-4 py-3 border border-border rounded-2xl bg-card/50">
                     {[
                         { href: "https://www.github.com/RealRohitDudi" },
                         { href: "https://x.com/RealRohitDudi" },
@@ -61,9 +61,9 @@ export function ProfileHeader({
                                     iconKey.charAt(0).toUpperCase() +
                                     iconKey.slice(1)
                                 }
-                                className="flex items-center justify-center w-10 h-10 hover:scale-110 transition-transform duration-200"
+                                className="flex items-center justify-center w-14 h-14 hover:scale-110 transition-transform duration-200"
                             >
-                                <span className="text-foreground/70 hover:text-primary transition-colors">
+                                <span className="text-white hover:text-primary transition-colors [&>svg]:w-7 [&>svg]:h-7">
                                     {ICON_MAP[iconKey]}
                                 </span>
                             </a>

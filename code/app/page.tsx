@@ -27,7 +27,7 @@ export default async function HomePage() {
       <ThemeSwitcherClient />
 
       <main className="min-h-screen w-full gradient-bg flex flex-col items-center justify-center py-8 sm:py-12 px-4 relative">
-        <div className="w-full max-w-3xl mx-auto flex flex-col items-center gap-8 sm:gap-12 relative z-10">
+        <div className="w-full max-w-3xl mx-auto flex flex-col items-center gap-4 sm:gap-6 relative z-10">
           <ProfileHeader profile={profileData} />
           <LinksDisplay links={profileData.links} />
           <PageFooter />
