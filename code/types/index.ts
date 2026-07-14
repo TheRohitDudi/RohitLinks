@@ -11,6 +11,7 @@ export interface PersonalLink {
 
 export interface ProfileData {
   name: string
+  handle?: string
   bio: string
   profileImage?: string
   links?: PersonalLink[]

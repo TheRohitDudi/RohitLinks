@@ -33,7 +33,7 @@ export function ThemeSwitcherClient() {
 
     // Sticky theme switcher only
     return (
-        <div className="fixed top-6 right-6 z-50">
+        <div className="fixed top-5 left-5 z-50">
             <ThemeSwitcher theme={theme} onThemeChange={handleThemeChange} />
         </div>
     );

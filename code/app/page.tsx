@@ -3,6 +3,8 @@ import { generateMetadata, generateViewport, generateJSONLD } from "@/lib/seo"
 import Script from "next/script"
 import { ThemeSwitcherClient } from "./theme-switcher-client"
 import { PerformanceMonitor } from "./performance-monitor"
+import { CosmicBackground } from "@/components/cosmic-background"
+import { ShareButton } from "@/components/share-button"
 import { ProfileHeader } from "@/components/profile-header"
 import { LinksDisplay } from "@/components/links-display"
 import { PageFooter } from "@/components/page-footer"
@@ -25,12 +27,16 @@ export default async function HomePage() {
         }}
       />
       <PerformanceMonitor />
+      <CosmicBackground />
       <ThemeSwitcherClient />
+      <ShareButton />
 
-      <main className="min-h-screen w-full gradient-bg flex flex-col items-center justify-center py-8 sm:py-12 px-4 relative">
-        <div className="w-full max-w-3xl mx-auto flex flex-col items-center gap-4 sm:gap-6 relative z-10">
+      <main className="min-h-screen w-full flex flex-col items-center pb-4 px-4 relative">
+        <div className="w-full max-w-xl mx-auto flex flex-col items-center relative z-10">
           <ProfileHeader profile={profileData} />
-          <LinksDisplay links={profileData.links ?? []} groupByCategory />
+          <LinksDisplay links={profileData.links ?? []} />
+        </div>
+        <div className="w-full mt-auto">
           <PageFooter />
         </div>
       </main>

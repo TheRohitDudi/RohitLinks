@@ -21,7 +21,7 @@ export const DEFAULT_LINKS: PersonalLink[] = [
     {
         id: "2",
         title: "Instagram",
-        url: "https://www.instagram.com/TheRohitDudi",
+        url: "https://www.instagram.com/therohitdudi",
         icon: "instagram",
         visible: true,
         order: 1,
@@ -36,6 +36,34 @@ export const DEFAULT_LINKS: PersonalLink[] = [
         order: 2,
         category: LINK_CATEGORIES.CONNECT_CHAT,
         description: "Climate Activist · Data Scientist · YouTuber",
+    },
+    {
+        id: "7",
+        title: "LinkedIn",
+        url: "https://www.linkedin.com/in/therohitdudi/",
+        icon: "linkedin",
+        visible: true,
+        order: 6,
+        category: LINK_CATEGORIES.PROFESSIONAL_CREATIVE,
+    },
+    {
+        id: "15",
+        title: "Spotify Show",
+        url: "https://open.spotify.com/show/5dYpLediGaquOoXGxh2Ttj",
+        icon: "spotify",
+        visible: true,
+        order: 14,
+        category: LINK_CATEGORIES.WATCH_LISTEN,
+        description: "Official Science-Philosophy podcast",
+    },
+    {
+        id: "21",
+        title: "Bluesky",
+        url: "https://bsky.app/profile/rohitdudi.com",
+        icon: "bluesky",
+        visible: true,
+        order: 20,
+        category: LINK_CATEGORIES.CONNECT_CHAT,
     },
     {
         id: "4",
@@ -64,15 +92,7 @@ export const DEFAULT_LINKS: PersonalLink[] = [
         order: 5,
         category: LINK_CATEGORIES.PROFESSIONAL_CREATIVE,
     },
-    {
-        id: "7",
-        title: "LinkedIn",
-        url: "https://www.linkedin.com/in/TheRohitDudi/",
-        icon: "linkedin",
-        visible: true,
-        order: 6,
-        category: LINK_CATEGORIES.PROFESSIONAL_CREATIVE,
-    },
+    
     {
         id: "8",
         title: "Tumblr",
@@ -137,16 +157,7 @@ export const DEFAULT_LINKS: PersonalLink[] = [
         order: 13,
         category: LINK_CATEGORIES.WATCH_LISTEN,
     },
-    {
-        id: "15",
-        title: "Spotify Show",
-        url: "https://open.spotify.com/show/5dYpLediGaquOoXGxh2Ttj",
-        icon: "spotify",
-        visible: true,
-        order: 14,
-        category: LINK_CATEGORIES.WATCH_LISTEN,
-        description: "Official Science-Philosophy podcast",
-    },
+    
     {
         id: "16",
         title: "WhatsApp Channel",
@@ -192,15 +203,7 @@ export const DEFAULT_LINKS: PersonalLink[] = [
         order: 19,
         category: LINK_CATEGORIES.CONNECT_CHAT,
     },
-    {
-        id: "21",
-        title: "Bluesky",
-        url: "https://bsky.app/profile/rohitdudi.com",
-        icon: "bluesky",
-        visible: true,
-        order: 20,
-        category: LINK_CATEGORIES.CONNECT_CHAT,
-    },
+    
     {
         id: "22",
         title: "Mastodon",
@@ -357,6 +360,8 @@ export const FEATURED_SOCIAL_LINKS = [
 
 export const CONTACT_EMAIL = "hello@rohitdudi.com";
 
+export const SITE_URL_SLUG = "links.rohitdudi.com/TheRohitDudi";
+
 export const FOOTER_SITES = [
     { label: "Main Website", href: "https://rohitdudi.com" },
     { label: "Our Studio", href: "https://studios.rohitdudi.com" },
@@ -366,6 +371,7 @@ export const FOOTER_SITES = [
 
 export const DEFAULT_PROFILE = {
     name: "Rohit Dudi",
+    handle: "@TheRohitDudi",
     bio: "Hey mate! Explore the links & connect with me there.",
     profileImage: "",
 };

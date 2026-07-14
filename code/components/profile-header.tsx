@@ -3,7 +3,7 @@ import Image from "next/image";
 import type { ProfileData } from "@/types";
 import { ICON_MAP } from "./link-icons";
 import { FEATURED_SOCIAL_LINKS, CONTACT_EMAIL } from "@/lib/constants";
-import { BadgeCheck, Mail } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 
 interface ProfileHeaderProps {
     profile: ProfileData;
@@ -14,87 +14,64 @@ export function ProfileHeader({
     profile,
     isPreview = false,
 }: ProfileHeaderProps) {
+    const quickLinks = [
+        ...FEATURED_SOCIAL_LINKS,
+        { href: `mailto:${CONTACT_EMAIL}`, icon: "mail" },
+    ];
+
     return (
-        <div className="text-center mb-6 relative z-10 px-4 sm:px-0 animate-fade-in">
+        <div className="text-center relative z-10 px-4 pt-24 pb-8 sm:pt-28 animate-fade-in">
             {/* Profile Image */}
-            <div className="mb-8 flex justify-center">
-                <div className="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36">
-                    <div
-                        className="absolute -inset-2 rounded-full opacity-60 animate-avatar-glow"
-                        style={{
-                            background:
-                                "conic-gradient(from 0deg, var(--primary), var(--accent), var(--secondary), var(--primary))",
-                            filter: "blur(14px)",
-                        }}
-                        aria-hidden="true"
-                    />
-                    <div className="relative w-full h-full rounded-full overflow-hidden ring-2 ring-primary/30 hover:ring-primary/60 transition-all duration-300 shadow-2xl">
+            <div className="mb-5 flex justify-center">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28">
+                    <div className="relative w-full h-full rounded-full overflow-hidden ring-2 ring-white/70 shadow-2xl shadow-black/40">
                         <Image
-                            src={require("@/public/header_profile.png")}
+                            src={require("@/public/header_profile.jpg")}
                             alt={`${profile.name}'s profile picture`}
-                            width={144}
-                            height={144}
+                            width={112}
+                            height={112}
                             className="w-full h-full object-cover"
                             priority
                         />
                     </div>
                     <div
-                        className="absolute bottom-0 right-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-primary flex items-center justify-center ring-4 ring-background shadow-lg"
+                        className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-[#00d9ff] flex items-center justify-center ring-[3px] ring-black/40 shadow-lg"
                         title="Verified"
                         aria-label="Verified profile"
                     >
-                        <BadgeCheck className="w-5 h-5 text-primary-foreground" />
+                        <BadgeCheck className="w-4 h-4 text-black" strokeWidth={2.5} />
                     </div>
                 </div>
             </div>
 
-            {/* Name */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4 text-balance leading-tight">
-                {profile.name}
+            {/* Handle */}
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 text-balance leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+                {(profile.handle || profile.name).replace(/^@/, "")}
             </h1>
 
             {/* Bio */}
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-xl mx-auto text-balance mb-6 leading-relaxed">
+            <p className="text-sm sm:text-base font-medium text-white/90 max-w-xs sm:max-w-sm mx-auto text-balance mb-6 leading-relaxed drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)]">
                 {profile.bio}
             </p>
 
-            {/* Email CTA */}
-            <div className="mb-8 flex justify-center">
-                <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="group inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm sm:text-base text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.03] active:scale-[0.98] transition-all duration-200"
-                    style={{
-                        background:
-                            "linear-gradient(135deg, var(--primary), var(--accent))",
-                    }}
-                    aria-label={`Send an email to ${CONTACT_EMAIL}`}
-                >
-                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:-rotate-6" />
-                    Say Hello
-                </a>
-            </div>
-
-            {/* Social Icon Bar - Featured accounts, wrapped in single border */}
-            <div className="flex justify-center gap-4 mb-3 flex-wrap px-4">
-                <div className="flex justify-center gap-4 px-4 py-3 border border-border rounded-2xl glass-card">
-                    {FEATURED_SOCIAL_LINKS.map(({ href, icon }) => {
-                        const label = icon.charAt(0).toUpperCase() + icon.slice(1);
-                        return (
-                            <a
-                                key={href}
-                                href={href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={label}
-                                className="flex items-center justify-center w-14 h-14 hover:scale-110 transition-transform duration-200"
-                            >
-                                <span className="text-white hover:text-primary transition-colors [&>svg]:w-7 [&>svg]:h-7">
-                                    {ICON_MAP[icon]}
-                                </span>
-                            </a>
-                        );
-                    })}
-                </div>
+            {/* Social Icon Bar */}
+            <div className="flex justify-center items-center gap-5 sm:gap-6 flex-wrap px-4">
+                {quickLinks.map(({ href, icon }) => {
+                    const label = icon.charAt(0).toUpperCase() + icon.slice(1);
+                    const isMailto = href.startsWith("mailto:");
+                    return (
+                        <a
+                            key={href}
+                            href={href}
+                            target={isMailto ? undefined : "_blank"}
+                            rel={isMailto ? undefined : "noopener noreferrer"}
+                            aria-label={isMailto ? "Send an email" : label}
+                            className="flex items-center justify-center text-white/90 hover:text-white hover:scale-110 transition-all duration-200 [&>svg]:w-6 [&>svg]:h-6 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
+                        >
+                            {ICON_MAP[icon]}
+                        </a>
+                    );
+                })}
             </div>
         </div>
     );
