@@ -22,10 +22,10 @@ export function ShareButton() {
             <ShareModal
                 open={open}
                 onOpenChange={setOpen}
-                title="Share Linktree"
+                title="Share Rohit Dudi"
                 url={typeof window !== "undefined" ? window.location.href : SITE_BASE_URL}
                 preview={{
-                    image: "/header_profile.png",
+                    image: "/header_profile.jpg",
                     verified: true,
                     heading: DEFAULT_PROFILE.handle || DEFAULT_PROFILE.name,
                     domain: SITE_URL_SLUG,

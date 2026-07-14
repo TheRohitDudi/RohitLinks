@@ -6,6 +6,7 @@ import type React from "react";
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     DialogTitle,
 } from "@/components/ui/dialog";
 import {
@@ -75,7 +76,11 @@ export function ShareModal({
         () => livePreviewCache.get(url) ?? null,
     );
     const [loadingPreview, setLoadingPreview] = useState(false);
-    const [imageFailed, setImageFailed] = useState(false);
+    // Tracks every src that has failed to load (not just the last one), so
+    // if the live image fails (e.g. blocked by the source site's hotlink
+    // protection) we correctly fall through to the local avatar instead of
+    // showing nothing.
+    const [failedSrcs, setFailedSrcs] = useState<Set<string>>(new Set());
 
     useEffect(() => {
         setCanNativeShare(
@@ -84,9 +89,9 @@ export function ShareModal({
     }, []);
 
     useEffect(() => {
-        // Give the image a fresh chance to load every time the modal opens —
+        // Give images a fresh chance to load every time the modal opens —
         // a prior transient load failure shouldn't stick around forever.
-        if (open) setImageFailed(false);
+        if (open) setFailedSrcs(new Set());
     }, [open]);
 
     useEffect(() => {
@@ -105,7 +110,11 @@ export function ShareModal({
             .then((res) => (res.ok ? res.json() : null))
             .then((data: LivePreviewData | null) => {
                 if (cancelled || !data) return;
-                livePreviewCache.set(url, data);
+                // Don't lock in an empty result for the rest of the session —
+                // let a later reopen try fetching fresh again.
+                if (data.title || data.description || data.image) {
+                    livePreviewCache.set(url, data);
+                }
                 setLive(data);
             })
             .catch(() => {
@@ -120,7 +129,12 @@ export function ShareModal({
         };
     }, [open, url, enableLiveFetch]);
 
-    const displayImage = !imageFailed && (live?.image || preview.image);
+    // Try the live image first, then fall back to the local avatar if the
+    // live one is missing or failed to actually render.
+    const displayImage = [live?.image, preview.image].find(
+        (src): src is string => Boolean(src) && !failedSrcs.has(src as string),
+    );
+    const isLiveImage = displayImage === live?.image;
     const displayHeading = live?.title || preview.heading;
     const displayDescription = live?.description || preview.description;
 
@@ -243,6 +257,9 @@ export function ShareModal({
                 showCloseButton={false}
                 className="bg-white text-neutral-900 border-none rounded-2xl p-5 sm:p-6 max-w-sm gap-4"
             >
+                <DialogDescription className="sr-only">
+                    Share &ldquo;{preview.heading}&rdquo; via link or social apps.
+                </DialogDescription>
                 <div className="flex items-center justify-between">
                     <DialogTitle className="text-base font-semibold text-neutral-900">
                         {title}
@@ -264,7 +281,7 @@ export function ShareModal({
                     <div className="relative w-20 h-20 mx-auto">
                         {displayImage ? (
                             <div className="w-full h-full rounded-full overflow-hidden ring-2 ring-white/15 bg-white/10">
-                                {live?.image ? (
+                                {isLiveImage ? (
                                     // Live-fetched preview images can come from any external
                                     // domain, so a plain <img> is used instead of next/image.
                                     // eslint-disable-next-line @next/next/no-img-element
@@ -273,7 +290,9 @@ export function ShareModal({
                                         alt=""
                                         referrerPolicy="no-referrer"
                                         className="w-full h-full object-cover"
-                                        onError={() => setImageFailed(true)}
+                                        onError={() =>
+                                            setFailedSrcs((prev) => new Set(prev).add(displayImage))
+                                        }
                                     />
                                 ) : (
                                     <Image
@@ -282,7 +301,9 @@ export function ShareModal({
                                         width={80}
                                         height={80}
                                         className="w-full h-full object-cover"
-                                        onError={() => setImageFailed(true)}
+                                        onError={() =>
+                                            setFailedSrcs((prev) => new Set(prev).add(displayImage))
+                                        }
                                     />
                                 )}
                             </div>

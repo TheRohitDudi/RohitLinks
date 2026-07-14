@@ -125,7 +125,7 @@ function LinkPill({
                     url={link.url}
                     enableLiveFetch
                     preview={{
-                        image: "/header_profile.png",
+                        image: "/header_profile.jpg",
                         heading: link.title,
                         domain: formatUrlPreview(link.url),
                         description: link.description,

@@ -44,9 +44,9 @@ export function ProfileHeader({
                 </div>
             </div>
 
-            {/* Handle */}
+            {/* Name */}
             <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-2 text-balance leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
-                {(profile.handle || profile.name).replace(/^@/, "")}
+                {profile.name}
             </h1>
 
             {/* Bio */}

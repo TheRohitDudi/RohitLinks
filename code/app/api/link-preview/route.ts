@@ -11,8 +11,15 @@ interface PreviewData {
 
 const cache = new Map<string, { data: PreviewData; expires: number }>();
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
-const FETCH_TIMEOUT_MS = 6000;
+// Results with nothing useful in them are cached only briefly, so a
+// transient scraping miss doesn't get "stuck" and keep blocking retries.
+const EMPTY_CACHE_TTL_MS = 2 * 60 * 1000;
+const FETCH_TIMEOUT_MS = 8000;
 const MAX_HTML_BYTES = 2_000_000;
+
+function isEmptyPreview(data: PreviewData): boolean {
+    return !data.title && !data.description && !data.image;
+}
 
 function decodeHtmlEntities(str: string): string {
     return str
@@ -144,6 +151,10 @@ export async function GET(request: NextRequest) {
         const res = await fetch(parsed.toString(), {
             signal: controller.signal,
             redirect: "follow",
+            // Deliberately not using Next's `next.revalidate` fetch cache here —
+            // we want every request to hit the network fresh and rely solely on
+            // our own explicit, inspectable cache below.
+            cache: "no-store",
             headers: {
                 // Many sites (YouTube, Instagram, etc.) only serve full HTML with
                 // Open Graph tags to requests that look like a real browser.
@@ -153,7 +164,6 @@ export async function GET(request: NextRequest) {
                     "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
                 "Accept-Language": "en-US,en;q=0.9",
             },
-            next: { revalidate: 3600 },
         });
 
         const contentType = res.headers.get("content-type") || "";
@@ -189,10 +199,15 @@ export async function GET(request: NextRequest) {
             }
         }
 
-        cache.set(cacheKey, { data, expires: Date.now() + CACHE_TTL_MS });
+        const ttl = isEmptyPreview(data) ? EMPTY_CACHE_TTL_MS : CACHE_TTL_MS;
+        cache.set(cacheKey, { data, expires: Date.now() + ttl });
 
         return NextResponse.json(data, {
-            headers: { "Cache-Control": "public, max-age=3600" },
+            headers: {
+                "Cache-Control": isEmptyPreview(data)
+                    ? "no-store"
+                    : "public, max-age=3600",
+            },
         });
     } catch {
         return NextResponse.json(

@@ -113,15 +113,6 @@ export const DEFAULT_LINKS: PersonalLink[] = [
         description: "Data Scientist. Full Stack Engineer.",
     },
     {
-        id: "10",
-        title: "Discord",
-        url: "https://discord.gg/TheRohitDudi",
-        icon: "discord",
-        visible: true,
-        order: 9,
-        category: LINK_CATEGORIES.CONNECT_CHAT,
-    },
-    {
         id: "11",
         title: "Facebook",
         url: "https://www.facebook.com/profile.php?id=61583425590511",
