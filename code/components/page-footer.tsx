@@ -1,64 +1,38 @@
 "use client";
 
+import { FOOTER_SITES } from "@/lib/constants";
+
 export function PageFooter() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="mt-20 mb-12 relative z-10 pt-8">
+        <footer className="mt-16 mb-12 relative z-10 pt-8 border-t border-border/50">
             <div className="max-w-xl mx-auto px-4 text-center">
-                <p className="text-sm text-muted-foreground mb-6">
-                    Connect with Rohit Dudi across all platforms
-                </p>
-                <div className="flex justify-center gap-x-4 gap-y-2 text-xs text-muted-foreground mb-6 flex-wrap">
-                    <a
-                        href="https://devrohitdudi.vercel.app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                    >
-                        Website
-                    </a>
-                    <a
-                        href="https://www.youtube.com/@RealRohitDudi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                    >
-                        YouTube
-                    </a>
-                    <a
-                        href="https://www.instagram.com/realrohitdudi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                    >
-                        Instagram
-                    </a>
-                    <a
-                        href="https://www.linkedin.com/in/RealRohitDudi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                    >
-                        LinkedIn
-                    </a>
-                    <a
-                        href="https://x.com/RealRohitDudi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                    >
-                        X
-                    </a>
-                    <a
-                        href="https://www.github.com/RealRohitDudi"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:text-primary transition-colors"
-                    >
-                        GitHub
-                    </a>
-                </div>
+                <nav
+                    className="flex justify-center items-center gap-x-3 gap-y-2 text-xs text-muted-foreground mb-6 flex-wrap"
+                    aria-label="Rohit Dudi websites"
+                >
+                    {FOOTER_SITES.map((site, index) => (
+                        <span key={site.href} className="flex items-center gap-x-3">
+                            <a
+                                href={site.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-primary transition-colors"
+                            >
+                                {site.label}
+                            </a>
+                            {index < FOOTER_SITES.length - 1 && (
+                                <span
+                                    className="text-muted-foreground/30"
+                                    aria-hidden="true"
+                                >
+                                    ·
+                                </span>
+                            )}
+                        </span>
+                    ))}
+                </nav>
                 <p className="text-xs text-muted-foreground/50">
                     © {currentYear} Rohit Dudi. All rights reserved.
                 </p>

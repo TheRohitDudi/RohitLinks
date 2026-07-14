@@ -1,40 +1,26 @@
 {
-  "name": "Rohit Dudi - Personal Links",
+  "name": "Rohit Dudi - All My Links",
   "short_name": "Rohit Dudi",
-  "description": "Connect with Rohit Dudi across all platforms - YouTube, Instagram, LinkedIn, GitHub, and more.",
+  "description": "Connect with Rohit Dudi across all platforms - YouTube, Instagram, X, LinkedIn, GitHub, and 30+ more.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#00d9ff",
-  "background_color": "#0a0e27",
+  "background_color": "#0f0f23",
   "categories": ["social", "networking"],
   "icons": [
     {
-      "src": "/icon-light-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon-dark-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/icon.svg",
+      "src": "/favicon.png",
       "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/screenshot-narrow.png",
-      "sizes": "540x720",
       "type": "image/png",
-      "form_factor": "narrow"
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

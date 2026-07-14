@@ -149,16 +149,65 @@
   }
 
   .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
+    animation: slideUp 0.6s ease-out backwards;
+  }
+
+  @keyframes avatarGlow {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-avatar-glow {
+    animation: avatarGlow 6s linear infinite;
+  }
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(4%, -6%) scale(1.08);
+    }
+  }
+
+  @keyframes drift-reverse {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-5%, 5%) scale(1.1);
+    }
+  }
+
+  /* Custom scrollbar for a more premium feel */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--muted);
+    border-radius: 8px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
   }
 }
 
-/* Clean gradient background */
+/* Clean gradient background with ambient drifting orbs */
 @layer utilities {
   .gradient-bg {
     position: relative;
     background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #0f0f23 100%);
     min-height: 100vh;
+    overflow-x: hidden;
   }
 
   .gradient-bg::before {
@@ -168,10 +217,42 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+    background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 10%, rgba(236, 72, 153, 0.05) 0%, transparent 45%);
     pointer-events: none;
     z-index: 0;
+    animation: drift 18s ease-in-out infinite;
+  }
+
+  .gradient-bg::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 85% 15%, rgba(0, 217, 255, 0.05) 0%, transparent 40%),
+      radial-gradient(circle at 10% 85%, rgba(99, 102, 241, 0.06) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+    animation: drift-reverse 22s ease-in-out infinite;
+  }
+
+  .glass-card {
+    background: color-mix(in srgb, var(--card) 65%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+  }
+
+  .hover-glow {
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--primary) 35%, transparent);
+    transform: translateY(-2px);
   }
 }
 

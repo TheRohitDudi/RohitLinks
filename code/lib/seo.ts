@@ -1,11 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { DEFAULT_LINKS, FOOTER_SITES, CONTACT_EMAIL } from "./constants";
+
+export const SITE_BASE_URL = "https://links.rohitdudi.com";
+
+const SITE_TITLE = "Rohit Dudi (@TheRohitDudi) - All My Links";
+const SITE_DESCRIPTION =
+    "Connect with Rohit Dudi — Climate Activist, Data Scientist & YouTuber. All my links: YouTube, Instagram, X, LinkedIn, GitHub & 30+ more.";
 
 export function generateMetadata(overrides?: Partial<Metadata>): Metadata {
-    const baseUrl = "https://devrohitdudi.vercel.app";
+    const baseUrl = SITE_BASE_URL;
 
-    const title = "Rohit Dudi - Personal Links & Social Media";
-    const description =
-        "Connect with Rohit Dudi across all platforms. Find links to my YouTube, Instagram, LinkedIn, GitHub, and more social media accounts.";
+    const title = SITE_TITLE;
+    const description = SITE_DESCRIPTION;
 
     return {
         title,
@@ -22,10 +28,10 @@ export function generateMetadata(overrides?: Partial<Metadata>): Metadata {
             type: "website",
             images: [
                 {
-                    url: `${baseUrl}/og-image.png`,
+                    url: `${baseUrl}/header_profile.png`,
                     width: 1200,
-                    height: 630,
-                    alt: "Rohit Dudi Personal Links",
+                    height: 1200,
+                    alt: "Rohit Dudi - All My Links",
                     type: "image/png",
                 },
             ],
@@ -35,9 +41,9 @@ export function generateMetadata(overrides?: Partial<Metadata>): Metadata {
             card: "summary_large_image",
             title,
             description,
-            images: [`${baseUrl}/og-image.png`],
-            creator: "@RealRohitDudi",
-            site: "@RealRohitDudi",
+            images: [`${baseUrl}/header_profile.png`],
+            creator: "@TheRohitDudi",
+            site: "@TheRohitDudi",
         },
         robots: {
             index: true,
@@ -53,47 +59,54 @@ export function generateMetadata(overrides?: Partial<Metadata>): Metadata {
                 "max-video-preview": -1,
             },
         },
-        viewport: {
-            width: "device-width",
-            initialScale: 1,
-            maximumScale: 5,
-        },
         keywords: [
             "Rohit Dudi",
-            "personal links",
+            "TheRohitDudi",
+            "RealRohitDudi",
             "Rohit",
             "Dudi",
+            "link in bio",
+            "linktree",
+            "personal links",
             "social media links",
-            "RealRohitDudi",
-            "RohitDudi",
             "link aggregator",
-            "YouTube",
-            "Instagram",
-            "LinkedIn",
-            "GitHub",
-            "Facebook",
-            "Threads",
-            "Reddit",
-            "Pinterest",
-            "Tumblr",
-            "SoundCloud",
-            "Spotify",
-            "Discord",
-            "Telegram",
-            "Whatsapp Channel",
+            "Climate Activist",
+            "Data Scientist",
+            "YouTuber",
+            ...DEFAULT_LINKS.map((link) => link.title),
         ],
         authors: [
             {
                 name: "Rohit Dudi",
+                url: "https://rohitdudi.com",
             },
         ],
         creator: "Rohit Dudi",
+        publisher: "Rohit Dudi",
+        category: "Personal",
         ...overrides,
     };
 }
 
+export function generateViewport(): Viewport {
+    return {
+        width: "device-width",
+        initialScale: 1,
+        maximumScale: 5,
+        themeColor: "#00d9ff",
+    };
+}
+
 export function generateJSONLD() {
-    const baseUrl = "https://devrohitdudi.vercel.app";
+    const baseUrl = SITE_BASE_URL;
+
+    const sameAs = [
+        "https://rohitdudi.com",
+        ...FOOTER_SITES.filter((site) => site.href !== "https://rohitdudi.com").map(
+            (site) => site.href,
+        ),
+        ...DEFAULT_LINKS.map((link) => link.url),
+    ];
 
     return {
         "@context": "https://schema.org",
@@ -102,35 +115,24 @@ export function generateJSONLD() {
                 "@type": "Person",
                 "@id": `${baseUrl}/#person`,
                 name: "Rohit Dudi",
-                url: baseUrl,
-                image: `${baseUrl}/profile.jpg`,
-                sameAs: [
-                    "https://devrohitdudi.vercel.app",
-                    "https://www.youtube.com/@RealRohitDudi",
-                    "https://www.instagram.com/realrohitdudi",
-                    "https://www.linkedin.com/in/RealRohitDudi",
-                    "https://x.com/RealRohitDudi",
-                    "https://www.facebook.com/RealRohitDudi",
-                    "https://www.threads.com/@realrohitdudi",
-                    "https://www.github.com/RealRohitDudi",
-                    "https://www.reddit.com/r/Real_Rohit_Dudi/",
-                    "https://in.pinterest.com/RealRohitDudi/",
-                    "https://www.tumblr.com/blog/realrohitdudi",
-                    "https://soundcloud.com/rohit-dudi-286180280",
-                    "https://open.spotify.com/user/31i7aqr2qho5vqgorzfi7dzdbdly",
-                    "https://discord.gg/ZHM6gfDz",
-                    "https://t.me/RealRohitDudi",
-                    "https://whatsapp.com/channel/0029VaAFT0cFy727f8XzfR18",
-                ],
-                jobTitle: "Developer & Content Creator",
-                description: "Connect with Rohit Dudi across all platforms.",
+                alternateName: ["TheRohitDudi", "RohitDudi"],
+                url: "https://rohitdudi.com",
+                image: `${baseUrl}/header_profile.png`,
+                sameAs,
+                email: `mailto:${CONTACT_EMAIL}`,
+                jobTitle: "Data Scientist, Full-Stack Engineer & Content Creator",
+                description:
+                    "Climate Activist, Data Scientist and YouTuber. Connect with Rohit Dudi across all platforms.",
             },
             {
                 "@type": "WebSite",
                 "@id": `${baseUrl}/#website`,
                 url: baseUrl,
-                name: "Rohit Dudi - Personal Links",
-                description: "Connect with Rohit Dudi across all platforms.",
+                name: "Rohit Dudi - All My Links",
+                description: SITE_DESCRIPTION,
+                publisher: {
+                    "@id": `${baseUrl}/#person`,
+                },
                 potentialAction: {
                     "@type": "SearchAction",
                     target: `${baseUrl}?q={search_term_string}`,
